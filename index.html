@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Survey</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #FFFFFF;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: #FF5F1F;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 30px 20px 20px 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        .question {
+            margin-bottom: 18px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .answers label {
+            display: inline-block;
+            margin-right: 20px;
+            font-weight: normal;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 80px;
+        }
+        button {
+            background: #3498db;
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 25px 0 0 0;
+            padding: 18px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .result.good {
+            background: #4CAF50;
+            color: #fff;
+        }
+        .result.mid {
+            background: #FFC107;
+            color: #222;
+        }
+        .result.bad {
+            background: #F44336;
+            color: #fff;
+        }
+        .customer-details {
+            background: #e9f7fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .form-section {
+            margin-bottom: 25px;
+        }
+        .form-section h2 {
+            color: #2c3e50;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Customer Survey</h1>
+        <form id="survey-form">
+            <div class="form-section">
+                <h2>Customer Details</h2>
+                <div class="customer-details">
+                    <div class="question">
+                        <label for="customer-name">Full Name:</label>
+                        <input type="text" id="customer-name" name="customer-name" required>
+                    </div>
+                    <div class="question">
+                        <label for="customer-email">Email:</label>
+                        <input type="email" id="customer-email" name="customer-email" required>
+                    </div>
+                    <div class="question">
+                        <label for="customer-phone">Phone Number:</label>
+                        <input type="tel" id="customer-phone" name="customer-phone" required>
+                    </div>
+                    <div class="question">
+                        <label for="customer-age">Age:</label>
+                        <input type="number" id="customer-age" name="customer-age" min="18" max="100" required>
+                    </div>
+                    <div class="question">
+                        <label for="customer-occupation">Occupation:</label>
+                        <input type="text" id="customer-occupation" name="customer-occupation" required>
+                    </div>
+                    <div class="question">
+                        <label for="customer-income">Annual Income (LKR):</label>
+                        <input type="number" id="customer-income" name="customer-income" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Survey Questions</h2>
+                <div class="question">
+                    <label>1. මාගේ වාර්ෂික ආදායම වගේ දහගුණයක ජීවිත රක්ෂණයක් මා සතුව ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q1" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q1" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>2. අසාද්‍ය රෝගයකදී වියදම් කිරීමට මාගේ වාර්ෂික ආදායම මෙන් දෙගුණයක අරමුදලක් මා සතුව ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q2" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q2" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>3. නොසිතූ වෙලාවකදී අසාද්‍ය රෝගී තත්වයකට හෝ සදාකාලික ආබාදයකට මුහුණ දීමට සිදුවුවහොත් අවම වශයෙන් මාස හයක කාලයක් සදහා වියදම් කළමණාකරණය කිරීම සදහා මා සතුව අරමුදලක් ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q3" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q3" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>4. මම හෝ මගේ පවුලේ සමාජිකයන්ගේ හදිසි රෝහල් ගත වීමකදී වියදම් කිරීම සදහා මා සතු ඉතිරි කර ඇති මුදල් අවශ්‍ය නොවේ.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q4" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q4" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>5. මම මගේ දරුවාගේ උසස් අද්‍යාපනය සහ අනාගතය වෙනුවෙන් සැලසුම් කර ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q5" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q5" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>6. මගේ විශ්‍රාමය වෙනුවෙන් මේ වනවිට මගේ වාර්ෂික ආදායම වගේ 10 ගුණයක අරමුදලක් සැලසුම් කර ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q6" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q6" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>7. මාගේ හදිසි මරණයකදී හෝ සදාකාලික ආබාදිත තත්වයකදී නිවාස ණය ඇතුලු සියලුම වගකීම් වලින් සම්පූර්ණයෙන්ම නිදහස් වීමට මට හැකියාව ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q7" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q7" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>8. මගේ රැකියාව අහිමි වුවහොත්, මගේ මාසික වියදම් අවම වශයෙන් මාස 6ක් සදහා සැපයීමට ප්‍රමාණවත් ඉතුරුමක් මා සතුව ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q8" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q8" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>9. මගේ නිවස විකිණීමට සිදුවුවහොත් එහි උකස ගෙවීමට තරම් ප්‍රමාණවත් මුදලක් මා සතුව ඇත.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q9" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q9" value="no"> No</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <label>10. මගේ මූල්‍ය කලමණාකරණය කිරීම සදහා විශ්වාස වන්ත මූල්‍ය උපදේශකවරයකු මා හට සිටී.</label>
+                    <div class="answers">
+                        <label><input type="radio" name="q10" value="yes" required> Yes</label>
+                        <label><input type="radio" name="q10" value="no"> No</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Advisor Information</h2>
+                <div class="question">
+                    <label for="advisor-name">Advisor Name:</label>
+                    <input type="text" id="advisor-name" name="advisor-name" required>
+                </div>
+                <div class="question">
+                    <label for="advisor-email">Advisor Email:</label>
+                    <input type="email" id="advisor-email" name="advisor-email" required>
+                </div>
+                <div class="question">
+                    <label for="advisor-phone">Advisor Phone:</label>
+                    <input type="tel" id="advisor-phone" name="advisor-phone">
+                </div>
+                <div class="question">
+                    <label for="comments">Additional Comments:</label>
+                    <textarea id="comments" name="comments" rows="2"></textarea>
+                </div>
+            </div>
+
+            <button type="submit" id="submit-btn">Submit Survey</button>
+        </form>
+        <div id="result-message" class="result" style="display:none;"></div>
+    </div>
+    <script>
+        // Initialize EmailJS (replace with your public key)
+        emailjs.init('CakL-A4OcK1-RGboq');
+
+        document.getElementById('survey-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            let yesCount = 0;
+            const questions = [
+                'මාගේ වාර්ෂික ආදායම වගේ දහගුණයක ජීවිත රක්ෂණයක් මා සතුව ඇත.',
+                'අසාද්‍ය රෝගයකදී වියදම් කිරීමට මාගේ වාර්ෂික ආදායම මෙන් දෙගුණයක අරමුදලක් මා සතුව ඇත.',
+                'නොසිතූ වෙලාවකදී අසාද්‍ය රෝගී තත්වයකට හෝ සදාකාලික ආබාදයකට මුහුණ දීමට සිදුවුවහොත් අවම වශයෙන් මාස හයක කාලයක් සදහා වියදම් කළමණාකරණය කිරීම සදහා මා සතුව අරමුදලක් ඇත.',
+                'මම හෝ මගේ පවුලේ සමාජිකයන්ගේ හදිසි රෝහල් ගත වීමකදී වියදම් කිරීම සදහා මා සතු ඉතිරි කර ඇති මුදල් අවශ්‍ය නොවේ.',
+                'මම මගේ දරුවාගේ උසස් අද්‍යාපනය සහ අනාගතය වෙනුවෙන් සැලසුම් කර ඇත.',
+                'මගේ විශ්‍රාමය වෙනුවෙන් මේ වනවිට මගේ වාර්ෂික ආදායම වගේ 10 ගුණයක අරමුදලක් සැලසුම් කර ඇත.',
+                'මාගේ හදිසි මරණයකදී හෝ සදාකාලික ආබාදිත තත්වයකදී නිවාස ණය ඇතුලු සියලුම වගකීම් වලින් සම්පූර්ණයෙන්ම නිදහස් වීමට මට හැකියාව ඇත.',
+                'මගේ රැකියාව අහිමි වුවහොත්, මගේ මාසික වියදම් අවම වශයෙන් මාස 6ක් සදහා සැපයීමට ප්‍රමාණවත් ඉතුරුමක් මා සතුව ඇත.',
+                'මගේ නිවස විකිණීමට සිදුවුවහොත් එහි උකස ගෙවීමට තරම් ප්‍රමාණවත් මුදලක් මා සතුව ඇත.',
+                'මගේ මූල්‍ය කලමණාකරණය කිරීම සදහා විශ්වාස වන්ත මූල්‍ය උපදේශකවරයකු මා හට සිටී.'
+            ];
+            let answers = {};
+            let questionAnswerList = '';
+            for (let i = 1; i <= 10; i++) {
+                const val = form[`q${i}`].value;
+                answers[`q${i}`] = val;
+                questionAnswerList += `${i}. ${questions[i-1]}: ${val}\n`;
+                if (val === 'yes') yesCount++;
+            }
+            
+            // Collect customer details
+            const customerName = form['customer-name'].value;
+            const customerEmail = form['customer-email'].value;
+            const customerPhone = form['customer-phone'].value;
+            const customerAge = form['customer-age'].value;
+            const customerOccupation = form['customer-occupation'].value;
+            const customerIncome = form['customer-income'].value;
+            
+            // Collect advisor details
+            const advisorName = form['advisor-name'].value;
+            const advisorEmail = form['advisor-email'].value;
+            const advisorPhone = form['advisor-phone'].value;
+            const comments = form['comments'].value;
+            
+            // Color code logic
+            let resultClass = 'good';
+            let resultText = 'Excellent! Most answers are positive.';
+            if (yesCount <= 4) {
+                resultClass = 'bad';
+                resultText = 'We are sorry! Most answers are negative.';
+            } else if (yesCount <= 7) {
+                resultClass = 'mid';
+                resultText = 'Thank you! Your feedback is mixed.';
+            }
+            const resultDiv = document.getElementById('result-message');
+            resultDiv.className = 'result ' + resultClass;
+            resultDiv.textContent = `Yes: ${yesCount} / 10. ${resultText}`;
+            resultDiv.style.display = 'block';
+            
+            // Send survey info to email
+            try {
+                await emailjs.send(
+                    'service_7z111vz',
+                    'template_vji63cd',
+                    {
+                        customer_name: customerName,
+                        customer_email: customerEmail,
+                        advisor_name: advisorName,
+                        advisor_email: advisorEmail,
+                        advisor_phone: advisorPhone,
+                        comments: comments,
+                        yes_count: yesCount,
+                        answers: JSON.stringify(answers, null, 2),
+                        submission_date: new Date().toLocaleString(),
+                        question_answer_list: questionAnswerList
+                    }
+                );
+                resultDiv.textContent += '\nSurvey sent to advisor!';
+
+                await emailjs.send(
+                    'service_7z111vz',
+                    'template_7o5dvq8',
+                    {
+                        advisor_email: advisorEmail,
+                        customer_name: customerName,
+                        customer_email: customerEmail,
+                        customer_phone: customerPhone,
+                        customer_age: customerAge,
+                        customer_occupation: customerOccupation,
+                        customer_income: customerIncome,
+                        
+                        comments: comments,
+                        yes_count: yesCount,
+                        answers: JSON.stringify(answers, null, 2),
+                        submission_date: new Date().toLocaleString(),
+                        question_answer_list: questionAnswerList
+                    }
+                );
+                resultDiv.textContent += '\nSurvey sent to advisor!';
+            } catch (err) {
+                resultDiv.textContent += `\nFailed to send survey. Error: ${err?.text || err?.message || err}`;
+                alert('EmailJS error: ' + (err?.text || err?.message || err));
+                console.error('EmailJS error details:', err);
+            }
+            document.getElementById('submit-btn').disabled = true;
+        });
+    </script>
+</body>
+</html>
