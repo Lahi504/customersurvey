@@ -3,65 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Survey</title>
+    <title>Finance Strenght Customer Survey</title>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #FFFFFF;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #ffe0c2 100%);
             margin: 0;
             padding: 0;
         }
         .container {
-            max-width: 600px;
+            max-width: 650px;
             margin: 40px auto;
-            background: #FF5F1F;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 30px 20px 20px 20px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+            padding: 36px 28px 28px 28px;
+            border: 1px solid #f3a46b;
         }
         h1 {
             text-align: center;
-            color: #2c3e50;
+            color: #FF5F1F;
+            font-size: 2.1em;
+            margin-bottom: 18px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .form-section {
+            margin-bottom: 32px;
+        }
+        .form-section h2 {
+            color: #FF5F1F;
+            background: linear-gradient(90deg, #ffe0c2 0%, #fff 100%);
+            border-left: 5px solid #FF5F1F;
+            padding: 8px 0 8px 12px;
+            margin-top: 0;
+            border-radius: 6px;
+            font-size: 1.2em;
+        }
+        .customer-details {
+            background: #f7fafd;
+            padding: 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(255,95,31,0.07);
         }
         .question {
             margin-bottom: 18px;
-            padding: 12px;
-            background: #f9f9f9;
-            border-radius: 5px;
+            padding: 14px 12px;
+            background: #fff7f0;
+            border-radius: 7px;
+            box-shadow: 0 1px 4px rgba(255,95,31,0.04);
+            transition: box-shadow 0.2s;
+        }
+        .question:focus-within {
+            box-shadow: 0 2px 8px rgba(255,95,31,0.12);
         }
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #2c3e50;
         }
         .answers label {
             display: inline-block;
-            margin-right: 20px;
-            font-weight: normal;
+            margin-right: 24px;
+            font-weight: 500;
+            color: #FF5F1F;
         }
         input[type="text"],
         input[type="email"],
         input[type="tel"],
+        input[type="number"],
         textarea {
             width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 10px;
+            border: 1.5px solid #ffd1a6;
+            border-radius: 6px;
             box-sizing: border-box;
+            font-size: 1em;
+            background: #fff;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        textarea:focus {
+            border-color: #FF5F1F;
+            outline: none;
         }
         textarea {
             height: 80px;
+            resize: vertical;
         }
         button {
-            background: #3498db;
+            background: linear-gradient(90deg, #FF5F1F 0%, #ffb36b 100%);
             color: #fff;
             border: none;
-            padding: 12px 28px;
-            border-radius: 5px;
-            font-size: 16px;
+            padding: 14px 32px;
+            border-radius: 7px;
+            font-size: 1.1em;
             cursor: pointer;
             margin-top: 10px;
+            font-weight: 600;
+            box-shadow: 0 2px 8px rgba(255,95,31,0.08);
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        button:hover:not(:disabled) {
+            background: linear-gradient(90deg, #ffb36b 0%, #FF5F1F 100%);
+            box-shadow: 0 4px 16px rgba(255,95,31,0.15);
         }
         button:disabled {
             opacity: 0.7;
@@ -70,46 +121,32 @@
         .result {
             margin: 25px 0 0 0;
             padding: 18px;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
             font-size: 1.2em;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(44,62,80,0.08);
         }
         .result.good {
-            background: #4CAF50;
+            background: linear-gradient(90deg, #4CAF50 0%, #a8e063 100%);
             color: #fff;
         }
         .result.mid {
-            background: #FFC107;
+            background: linear-gradient(90deg, #FFC107 0%, #ffe082 100%);
             color: #222;
         }
         .result.bad {
-            background: #F44336;
+            background: linear-gradient(90deg, #F44336 0%, #ff7961 100%);
             color: #fff;
-        }
-        .customer-details {
-            background: #e9f7fe;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .form-section {
-            margin-bottom: 25px;
-        }
-        .form-section h2 {
-            color: #2c3e50;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
-            margin-top: 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Customer Survey</h1>
+        <h1><b>ඔබගේ මූල්‍ය තත්වය ඔබගේ අනාගතය සදහා කෙතරම් සූදානම් ද?</b>, යන්න සොයා බලමු.</h1>
         <form id="survey-form">
             <div class="form-section">
-                <h2>Customer Details</h2>
+                <h2>Add Your Details</h2>
                 <div class="customer-details">
                     <div class="question">
                         <label for="customer-name">Full Name:</label>
@@ -127,84 +164,77 @@
                         <label for="customer-age">Age:</label>
                         <input type="number" id="customer-age" name="customer-age" min="18" max="100" required>
                     </div>
-                    <div class="question">
-                        <label for="customer-occupation">Occupation:</label>
-                        <input type="text" id="customer-occupation" name="customer-occupation" required>
-                    </div>
-                    <div class="question">
-                        <label for="customer-income">Annual Income (LKR):</label>
-                        <input type="number" id="customer-income" name="customer-income" required>
-                    </div>
+                
                 </div>
             </div>
 
             <div class="form-section">
-                <h2>Survey Questions</h2>
+                <h2>සමීක්ෂණ ප්‍රශ්ණ</h2>
                 <div class="question">
-                    <label>1. මාගේ වාර්ෂික ආදායම වගේ දහගුණයක ජීවිත රක්ෂණයක් මා සතුව ඇත.</label>
+                    <label>1. ඔබගේ වාර්ෂික ආදායම වගේ දහගුණයක ජීවිත රක්ෂණයක් ඔබ සතුව තිබේ ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q1" value="yes" required> Yes</label>
                         <label><input type="radio" name="q1" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>2. අසාද්‍ය රෝගයකදී වියදම් කිරීමට මාගේ වාර්ෂික ආදායම මෙන් දෙගුණයක අරමුදලක් මා සතුව ඇත.</label>
+                    <label>2. අසාද්‍ය රෝගයකදී වියදම් කිරීමට ඔබගේ වාර්ෂික ආදායම මෙන් දෙගුණයක අරමුදලක් ඔබ සතුව තිබේ ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q2" value="yes" required> Yes</label>
                         <label><input type="radio" name="q2" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>3. නොසිතූ වෙලාවකදී අසාද්‍ය රෝගී තත්වයකට හෝ සදාකාලික ආබාදයකට මුහුණ දීමට සිදුවුවහොත් අවම වශයෙන් මාස හයක කාලයක් සදහා වියදම් කළමණාකරණය කිරීම සදහා මා සතුව අරමුදලක් ඇත.</label>
+                    <label>3. නොසිතූ වෙලාවකදී අසාද්‍ය රෝගී තත්වයකට හෝ සදාකාලික ආබාදයකට මුහුණ දීමට සිදුවුවහොත් අවම වශයෙන් මාස හයක කාලයක් සදහා වියදම් කළමණාකරණය කිරීම සදහා ඔබ සතුව අරමුදලක් තිබේ ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q3" value="yes" required> Yes</label>
                         <label><input type="radio" name="q3" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>4. මම හෝ මගේ පවුලේ සමාජිකයන්ගේ හදිසි රෝහල් ගත වීමකදී වියදම් කිරීම සදහා මා සතු ඉතිරි කර ඇති මුදල් අවශ්‍ය නොවේ.</label>
+                    <label>4. ඔබ හෝ ඔබගේ පවුලේ සමාජිකයන්ගේ හදිසි රෝහල් ගත වීමකදී වියදම් කිරීම සදහා ඔබ සතු ඉතිරි කර ඇති මුදල් අවශ්‍ය නොවේ.</label>
                     <div class="answers">
                         <label><input type="radio" name="q4" value="yes" required> Yes</label>
                         <label><input type="radio" name="q4" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>5. මම මගේ දරුවාගේ උසස් අද්‍යාපනය සහ අනාගතය වෙනුවෙන් සැලසුම් කර ඇත.</label>
+                    <label>5. ඔබ ඔබගේ දරුවාගේ උසස් අද්‍යාපනය සහ අනාගතය වෙනුවෙන් සැලසුම් දැනටමත් සකස්කර ඇත් ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q5" value="yes" required> Yes</label>
                         <label><input type="radio" name="q5" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>6. මගේ විශ්‍රාමය වෙනුවෙන් මේ වනවිට මගේ වාර්ෂික ආදායම වගේ 10 ගුණයක අරමුදලක් සැලසුම් කර ඇත.</label>
+                    <label>6. ඔබගේ විශ්‍රාමය වෙනුවෙන් මේ වනවිට ඔබගේ වාර්ෂික ආදායම වගේ 10 ගුණයක අරමුදලක් සැලසුම් කර ඇත් ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q6" value="yes" required> Yes</label>
                         <label><input type="radio" name="q6" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>7. මාගේ හදිසි මරණයකදී හෝ සදාකාලික ආබාදිත තත්වයකදී නිවාස ණය ඇතුලු සියලුම වගකීම් වලින් සම්පූර්ණයෙන්ම නිදහස් වීමට මට හැකියාව ඇත.</label>
+                    <label>7. ඔබ හදිසියේ මියගියහොත් හෝ ඔබට ඇතිවන සදාකාලික ආබාදිත තත්වයකදී නිවාස ණය ඇතුලු සියලුම වගකීම් වලින් සම්පූර්ණයෙන්ම නිදහස් වීමට මට හැකියාව තිබේද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q7" value="yes" required> Yes</label>
                         <label><input type="radio" name="q7" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>8. මගේ රැකියාව අහිමි වුවහොත්, මගේ මාසික වියදම් අවම වශයෙන් මාස 6ක් සදහා සැපයීමට ප්‍රමාණවත් ඉතුරුමක් මා සතුව ඇත.</label>
+                    <label>8. ඔබගේ රැකියාව අහිමි වුවහොත්, ඔබගේ මාසික වියදම් අවම වශයෙන් මාස 6ක් සදහා සැපයීමට ප්‍රමාණවත් ඉතුරුමක් ඔබ සතුව ඇත් ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q8" value="yes" required> Yes</label>
                         <label><input type="radio" name="q8" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>9. මගේ නිවස විකිණීමට සිදුවුවහොත් එහි උකස ගෙවීමට තරම් ප්‍රමාණවත් මුදලක් මා සතුව ඇත.</label>
+                    <label>9. ඔබගේ නිවස විකිණීමට සිදුවුවහොත් එහි උකස ගෙවීමට තරම් ප්‍රමාණවත් මුදලක් ඔබ සතුව තිබේ ද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q9" value="yes" required> Yes</label>
                         <label><input type="radio" name="q9" value="no"> No</label>
                     </div>
                 </div>
                 <div class="question">
-                    <label>10. මගේ මූල්‍ය කලමණාකරණය කිරීම සදහා විශ්වාස වන්ත මූල්‍ය උපදේශකවරයකු මා හට සිටී.</label>
+                    <label>10. ඔබගේ මූල්‍ය කලමණාකරණය කිරීම සදහා විශ්වාස වන්ත මූල්‍ය උපදේශකවරයකු ඔබ හට සිටීද?</label>
                     <div class="answers">
                         <label><input type="radio" name="q10" value="yes" required> Yes</label>
                         <label><input type="radio" name="q10" value="no"> No</label>
@@ -212,24 +242,13 @@
                 </div>
             </div>
 
-            <div class="form-section">
-                <h2>Advisor Information</h2>
-                <div class="question">
-                    <label for="advisor-name">Advisor Name:</label>
-                    <input type="text" id="advisor-name" name="advisor-name" required>
-                </div>
-                <div class="question">
-                    <label for="advisor-email">Advisor Email:</label>
-                    <input type="email" id="advisor-email" name="advisor-email" required>
-                </div>
-                <div class="question">
-                    <label for="advisor-phone">Advisor Phone:</label>
-                    <input type="tel" id="advisor-phone" name="advisor-phone">
-                </div>
-                <div class="question">
-                    <label for="comments">Additional Comments:</label>
-                    <textarea id="comments" name="comments" rows="2"></textarea>
-                </div>
+            <!-- Hidden advisor information for backend/email only -->
+            <input type="hidden" id="advisor-name" name="advisor-name" value="Lahiru Sahan">
+            <input type="hidden" id="advisor-email" name="advisor-email" value="lahirusahanofficial@gmail.com">
+            <input type="hidden" id="advisor-phone" name="advisor-phone" value="0725121120">
+            <div class="question">
+                <label for="comments">Comments:</label>
+                <textarea id="comments" name="comments" readonly>සමීක්ෂණය සම්පූර්ණ කිරීම ගැන ඔබට ස්තූතියි. ඔබගේ අදහස් ඉතා වටිනා අතර අපගේ සේවාවන් වැඩිදියුණු කිරීමට උපකාරී වනු ඇත. මූල්‍ය හා රක්ෂණ පිළිබඳ වැඩිදුර තොරතුරු ලබා ගැනීමට ඔබට අවශ්‍ය නම් කරුණාකර මාව සම්බන්ධ කරගන්න. මගේ සම්බන්ධතා තොරතුරු ඉහත දක්වා ඇති ඔබගේ විද්‍යුත් තැපැල් ලිපිනයට මාරු කරනු ලැබෙනු ඇත.</textarea>
             </div>
 
             <button type="submit" id="submit-btn">Submit Survey</button>
@@ -270,8 +289,7 @@
             const customerEmail = form['customer-email'].value;
             const customerPhone = form['customer-phone'].value;
             const customerAge = form['customer-age'].value;
-            const customerOccupation = form['customer-occupation'].value;
-            const customerIncome = form['customer-income'].value;
+            
             
             // Collect advisor details
             const advisorName = form['advisor-name'].value;
@@ -323,8 +341,7 @@
                         customer_email: customerEmail,
                         customer_phone: customerPhone,
                         customer_age: customerAge,
-                        customer_occupation: customerOccupation,
-                        customer_income: customerIncome,
+                        
                         
                         comments: comments,
                         yes_count: yesCount,
